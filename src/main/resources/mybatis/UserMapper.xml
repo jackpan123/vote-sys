@@ -23,4 +23,102 @@
   <select id="list" resultMap="baseResultMap">
       select * from user
   </select>
+
+  <insert id="save" parameterType="com.woailqw.simplevote.entity.User">
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="loginName != null">
+        login_name,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="mobile != null">
+        mobile,
+      </if>
+      <if test="userType != null">
+        user_type,
+      </if>
+      <if test="loginIp != null">
+        login_ip,
+      </if>
+      <if test="loginDate != null">
+        login_date,
+      </if>
+      <if test="loginFlag != null">
+        login_flag,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="updateBy != null">
+        update_by,
+      </if>
+      <if test="updateDate != null">
+        update_date,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+      <if test="delFlag != null">
+        del_flag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,javaType=java.lang.String},
+      </if>
+      <if test="loginName != null">
+        #{loginName,javaType=java.lang.String},
+      </if>
+      <if test="password != null">
+        #{password,javaType=java.lang.String},
+      </if>
+      <if test="name != null">
+        #{name,javaType=java.lang.String},
+      </if>
+      <if test="mobile != null">
+        #{mobile,javaType=java.lang.String},
+      </if>
+      <if test="userType != null">
+        #{userType,javaType=java.lang.String},
+      </if>
+      <if test="loginIp != null">
+        #{loginIp,javaType=java.lang.String},
+      </if>
+      <if test="loginDate != null">
+        #{loginDate,javaType=java.time.LocalDateTime},
+      </if>
+      <if test="loginFlag != null">
+        #{loginFlag,javaType=java.lang.String},
+      </if>
+      <if test="createBy != null">
+        #{createBy,javaType=java.lang.String},
+      </if>
+      <if test="createDate != null">
+        #{createDate,javaType=java.time.LocalDateTime},
+      </if>
+      <if test="updateBy != null">
+        #{updateBy,javaType=java.lang.String},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,javaType=java.time.LocalDateTime},
+      </if>
+      <if test="remarks != null">
+        #{remarks,javaType=java.lang.String},
+      </if>
+      <if test="delFlag != null">
+        #{delFlag,javaType=java.lang.String},
+      </if>
+    </trim>
+  </insert>
 </mapper>

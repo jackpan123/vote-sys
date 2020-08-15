@@ -7,14 +7,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * data source config
+ * Data source config.
  *
  * @author Jack Pan
  * @version 1.00 2020-08-10
  */
 @Configuration
 public class DataSourceConfig {
-
 
     @Bean
     @ConfigurationProperties("app.datasource")
