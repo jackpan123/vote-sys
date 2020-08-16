@@ -24,6 +24,10 @@
       select * from user
   </select>
 
+  <select id="getUserByLoginName" resultMap="baseResultMap">
+    select * from user where login_name = #{loginName}
+  </select>
+
   <insert id="save" parameterType="com.woailqw.simplevote.entity.User">
     insert into user
     <trim prefix="(" suffix=")" suffixOverrides=",">
