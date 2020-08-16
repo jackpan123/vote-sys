@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController(value = "user")
 public class UserController {
 
-    private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+    private static final BCryptPasswordEncoder ENCODER = new BCryptPasswordEncoder();
 
     @Autowired
     private UserMapper userMapper;
@@ -36,6 +36,7 @@ public class UserController {
     public CreatedVO register(@RequestBody @Validated RegisterDTO userInfo) {
         User user = new User();
         BeanUtils.copyProperties(userInfo, user);
+        user.setPassword(ENCODER.encode(userInfo.getPassword()));
         user.prevInsert();
         int result = userMapper.save(user);
         if (result > 0) {
