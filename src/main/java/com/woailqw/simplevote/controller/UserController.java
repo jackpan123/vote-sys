@@ -12,7 +12,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @Api("User Controller")
 @RestController(value = "user")
+@CrossOrigin
 public class UserController {
 
     private static final BCryptPasswordEncoder ENCODER = new BCryptPasswordEncoder();
@@ -32,7 +34,7 @@ public class UserController {
     private UserMapper userMapper;
 
     @ApiOperation("Register")
-    @PutMapping(value = "user/v1.0/register")
+    @PostMapping(value = "user/v1.0/register")
     public CreatedVO register(@RequestBody @Validated RegisterDTO userInfo) {
         User user = new User();
         BeanUtils.copyProperties(userInfo, user);
