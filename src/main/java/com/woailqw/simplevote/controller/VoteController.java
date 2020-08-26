@@ -14,8 +14,9 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,6 +29,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @Api("Vote Controller")
 @RestController(value = "vote")
+@CrossOrigin
 public class VoteController {
 
     @Autowired
@@ -43,7 +45,7 @@ public class VoteController {
      * @return Result.
      */
     @ApiOperation("Vote Increment")
-    @PutMapping(value = "vote/v1.0/increment")
+    @PostMapping(value = "vote/v1.0/increment")
     public CreatedVO register(@RequestBody @Validated VoteIncrementDTO voteIncrement) {
         // Access current user ID.
         String userId = userService.getCurrentUser().getId();
