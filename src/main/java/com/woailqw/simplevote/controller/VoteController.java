@@ -53,6 +53,17 @@ public class VoteController {
         BeanUtils.copyProperties(voteIncrement, vote);
         vote.prevInsert();
         vote.setUserId(userId);
+        if ("true".equals(voteIncrement.getAnonymous())) {
+            vote.setAnonymous("1");
+        } else {
+            vote.setAnonymous("0");
+        }
+
+        if ("true".equals(voteIncrement.getMultiChoice())) {
+            vote.setMultiChoice("1");
+        } else {
+            vote.setMultiChoice("0");
+        }
         vote.setVoteItem(new Gson().toJson(voteIncrement.getVoteItemList()));
         if (voteMapper.save(vote) > 0) {
             return new CreatedVO(Code.SUCCESS.getCode(), Code.SUCCESS.getZhDescription());

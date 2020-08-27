@@ -1,5 +1,6 @@
 package com.woailqw.simplevote.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -18,6 +19,7 @@ public class VoteIncrementDTO {
 
     private String multiChoice;
 
+    @JsonFormat(timezone="GMT+8")
     private LocalDateTime voteEnd;
 
     private String anonymous;
