@@ -6,6 +6,7 @@ import com.woailqw.simplevote.dao.VoteMapper;
 import com.woailqw.simplevote.dto.VoteIncrementDTO;
 import com.woailqw.simplevote.entity.Vote;
 import com.woailqw.simplevote.service.UserService;
+import com.woailqw.simplevote.service.VoteService;
 import com.woailqw.simplevote.utils.ResponseUtil;
 import com.woailqw.simplevote.vo.CreatedVO;
 import com.woailqw.simplevote.vo.PageResponseVO;
@@ -37,6 +38,9 @@ public class VoteController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private VoteService voteService;
 
     /**
      * Create vote.

@@ -9,7 +9,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 /**
- * User Service
+ * User Service.
  *
  * @author Jack Pan
  * @version
