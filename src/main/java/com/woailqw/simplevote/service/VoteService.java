@@ -15,7 +15,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class VoteService {
 
-    private void mapChoice(Vote vote, VoteIncrementDTO voteIncrement) {
+    /**
+     * Map multi choice and anonymous.
+     *
+     * @param vote
+     * @param voteIncrement
+     */
+    public void supplementalAttributes(Vote vote, VoteIncrementDTO voteIncrement) {
         if ("true".equals(voteIncrement.getAnonymous())) {
             vote.setAnonymous("1");
         } else {

@@ -29,4 +29,11 @@ public interface VoteMapper {
      * @return Vote list.
      */
     List<Vote> list(Integer page, Integer count);
+
+    /**
+     * Vote id.
+     * @param voteId The vote id.
+     * @return Vote.
+     */
+    Vote get(String voteId);
 }

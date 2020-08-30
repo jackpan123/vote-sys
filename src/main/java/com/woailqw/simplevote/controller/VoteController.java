@@ -1,6 +1,5 @@
 package com.woailqw.simplevote.controller;
 
-import com.google.gson.Gson;
 import com.woailqw.simplevote.constant.Code;
 import com.woailqw.simplevote.dao.VoteMapper;
 import com.woailqw.simplevote.dto.VoteIncrementDTO;
@@ -10,6 +9,7 @@ import com.woailqw.simplevote.service.VoteService;
 import com.woailqw.simplevote.utils.ResponseUtil;
 import com.woailqw.simplevote.vo.CreatedVO;
 import com.woailqw.simplevote.vo.PageResponseVO;
+import com.woailqw.simplevote.vo.UnifyResponseVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.BeanUtils;
@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -57,18 +58,7 @@ public class VoteController {
         BeanUtils.copyProperties(voteIncrement, vote);
         vote.prevInsert();
         vote.setUserId(userId);
-        if ("true".equals(voteIncrement.getAnonymous())) {
-            vote.setAnonymous("1");
-        } else {
-            vote.setAnonymous("0");
-        }
-
-        if ("true".equals(voteIncrement.getMultiChoice())) {
-            vote.setMultiChoice("1");
-        } else {
-            vote.setMultiChoice("0");
-        }
-        vote.setVoteItem(new Gson().toJson(voteIncrement.getVoteItemList()));
+        voteService.supplementalAttributes(vote, voteIncrement);
         if (voteMapper.save(vote) > 0) {
             return new CreatedVO(Code.SUCCESS.getCode(), Code.SUCCESS.getZhDescription());
         } else {
@@ -80,6 +70,12 @@ public class VoteController {
     @GetMapping(value = "vote/v1.0/center")
     public PageResponseVO<Vote> voteCenter(Integer page, Integer count) {
 
-        return ResponseUtil.generatePageResult(2,voteMapper.list(page, count) , page, count);
+        return ResponseUtil.generatePageResult(2, voteMapper.list(page, count) , page, count);
+    }
+
+    @ApiOperation("Vote Detail")
+    @GetMapping(value = "vote/v1.0/voteDetail/{voteId}")
+    public UnifyResponseVO<Vote> voteDetail(@PathVariable String voteId) {
+        return ResponseUtil.generateUpdatedResponse(Code.SUCCESS.getCode(), voteMapper.get(voteId));
     }
 }

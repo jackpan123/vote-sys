@@ -22,6 +22,10 @@
       select * from vote
   </select>
 
+  <select id="get" resultMap="baseResultMap">
+      select * from vote where id = #{voteId}
+  </select>
+
   <insert id="save" parameterType="com.woailqw.simplevote.entity.Vote">
     insert into vote
     <trim prefix="(" suffix=")" suffixOverrides=",">
