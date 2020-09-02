@@ -19,7 +19,11 @@
   </resultMap>
 
   <select id="list" resultMap="baseResultMap">
-      select * from vote
+      select * from vote where del_flag = '0' limit #{start}, #{count}
+  </select>
+
+  <select id="countTotal" resultType="java.lang.Integer">
+      select count(*) from vote where del_flag = '0'
   </select>
 
   <select id="get" resultMap="baseResultMap">

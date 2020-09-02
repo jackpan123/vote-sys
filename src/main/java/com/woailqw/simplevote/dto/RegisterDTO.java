@@ -17,7 +17,7 @@ public class RegisterDTO {
     private String loginName;
 
     @NotBlank(message = "password not null")
-    @Pattern(regexp = "^[A-Za-z0-9_*&$#@]{6,22}$", message = "密码格式错误")
+    @Pattern(regexp = "^[A-Za-z0-9_*&$#@]{6,22}$", message = "密码格式错误，6到22位")
     @ApiModelProperty(value = "password")
     private String password;
 

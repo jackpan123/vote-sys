@@ -69,8 +69,8 @@ public class VoteController {
     @ApiOperation("Vote Increment")
     @GetMapping(value = "vote/v1.0/center")
     public PageResponseVO<Vote> voteCenter(Integer page, Integer count) {
-
-        return ResponseUtil.generatePageResult(2, voteMapper.list(page, count) , page, count);
+        int start = (page - 1) * count;
+        return ResponseUtil.generatePageResult(voteMapper.countTotal(), voteMapper.list(start, count), page, count);
     }
 
     @ApiOperation("Vote Detail")

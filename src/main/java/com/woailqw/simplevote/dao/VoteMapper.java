@@ -3,6 +3,7 @@ package com.woailqw.simplevote.dao;
 import com.woailqw.simplevote.entity.Vote;
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * User mapper.
@@ -24,11 +25,18 @@ public interface VoteMapper {
     /**
      * Vote list.
      *
-     * @param page Page number
+     * @param start Page number
      * @param count Page size.
      * @return Vote list.
      */
-    List<Vote> list(Integer page, Integer count);
+    List<Vote> list(@Param("start") Integer start, @Param("count") Integer count);
+
+    /**
+     * Vote total.
+     *
+     * @return Total number.
+     */
+    Integer countTotal();
 
     /**
      * Vote id.
