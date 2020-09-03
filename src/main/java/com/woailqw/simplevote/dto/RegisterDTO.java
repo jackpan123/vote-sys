@@ -3,6 +3,7 @@ package com.woailqw.simplevote.dto;
 import io.swagger.annotations.ApiModelProperty;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
+import lombok.Data;
 
 /**
  * Register DTO.
@@ -11,8 +12,11 @@ import javax.validation.constraints.Pattern;
  * @author Jack Pan
  * @version 1.00 2020-08-15
  */
+@Data
 public class RegisterDTO {
+
     @NotBlank(message = "login name not null")
+    @Pattern(regexp = "^[\\u4e00-\\u9fa5\\w]+$", message = "登录名格式错误")
     @ApiModelProperty(value = "login name")
     private String loginName;
 
@@ -21,83 +25,14 @@ public class RegisterDTO {
     @ApiModelProperty(value = "password")
     private String password;
 
-    @NotBlank(message = "password not null")
+    @NotBlank(message = "mobile not null")
+    @Pattern(regexp = "^1[3-9]\\d{9}$", message = "手机号格式错误")
     @ApiModelProperty(value = "mobile")
     private String mobile;
 
-    @NotBlank(message = "password not null")
+    @NotBlank(message = "name not null")
     @ApiModelProperty(value = "name")
+    @Pattern(regexp = "^[\\u4e00-\\u9fa5]{2,4}$", message = "仅支持2-4位中文名字")
     private String name;
 
-    /**
-     * Gets loginName.
-     *
-     * @return Value of loginName.
-     */
-    public String getLoginName() {
-        return this.loginName;
-    }
-
-    /**
-     * Sets loginName.
-     *
-     * @param loginName Simple param.
-     */
-    public void setLoginName(String loginName) {
-        this.loginName = loginName;
-    }
-
-    /**
-     * Gets password.
-     *
-     * @return Value of password.
-     */
-    public String getPassword() {
-        return this.password;
-    }
-
-    /**
-     * Sets password.
-     *
-     * @param password Simple param.
-     */
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    /**
-     * Gets mobile.
-     *
-     * @return Value of mobile.
-     */
-    public String getMobile() {
-        return this.mobile;
-    }
-
-    /**
-     * Sets mobile.
-     *
-     * @param mobile Simple param.
-     */
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
-    }
-
-    /**
-     * Gets name.
-     *
-     * @return Value of name.
-     */
-    public String getName() {
-        return this.name;
-    }
-
-    /**
-     * Sets name.
-     *
-     * @param name Simple param.
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
 }
