@@ -3,6 +3,10 @@ package com.woailqw.simplevote.dto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import java.time.LocalDateTime;
 import java.util.List;
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 /**
  * Create vote.
@@ -13,15 +17,23 @@ import java.util.List;
 public class VoteIncrementDTO {
 
 
+    @NotBlank(message = "投票主题不为空")
+    @Pattern(regexp = "^[\\u4e00-\\u9fa5\\w]+$", message = "仅支持中文英文数字")
+    @Size(max = 200, message = "最多200个字符")
     private String voteTitle;
 
+    @Valid
+    @NotBlank(message = "投票项不为空")
     private List<VoteItemDTO> voteItemList;
 
+    @NotBlank(message = "多选为必选项")
     private String multiChoice;
 
+    @NotBlank(message = "截止时间为必选项")
     @JsonFormat(timezone="GMT+8")
     private LocalDateTime voteEnd;
 
+    @NotBlank(message = "匿名为必选项")
     private String anonymous;
 
     /**

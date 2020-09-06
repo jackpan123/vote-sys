@@ -1,5 +1,10 @@
 package com.woailqw.simplevote.dto;
 
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
 /**
  * Vote item DTO
  *
@@ -8,8 +13,12 @@ package com.woailqw.simplevote.dto;
  */
 public class VoteItemDTO {
 
+    @NotBlank(message = "投票项ID不为空")
     private Integer id;
 
+    @NotBlank(message = "投票项内容不为空")
+    @Pattern(regexp = "^[\\u4e00-\\u9fa5\\w]+$", message = "仅支持中文英文数字")
+    @Size(max = 15, message = "最多15个字符")
     private String itemContext;
 
     /**
