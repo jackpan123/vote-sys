@@ -9,14 +9,11 @@ import com.woailqw.simplevote.vo.CreatedVO;
 import com.woailqw.simplevote.vo.UnifyResponseVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import java.util.List;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,7 +26,6 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @Api("User Controller")
 @RestController(value = "user")
-@CrossOrigin
 public class UserController extends BaseController{
 
     private static final BCryptPasswordEncoder ENCODER = new BCryptPasswordEncoder();

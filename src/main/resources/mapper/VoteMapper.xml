@@ -16,6 +16,7 @@
     <result column="multi_choice" property="multiChoice" javaType="java.lang.String" />
     <result column="vote_end" property="voteEnd" javaType="java.time.LocalDateTime" />
     <result column="anonymous" property="anonymous" javaType="java.lang.String" />
+    <result column="vote_status" property="voteStatus" javaType="java.lang.String" />
   </resultMap>
 
   <select id="list" resultMap="baseResultMap">
@@ -53,6 +54,9 @@
       </if>
       <if test="anonymous != null">
         anonymous,
+      </if>
+      <if test="voteStatus != null">
+        vote_status,
       </if>
       <if test="createBy != null">
         create_by,
@@ -94,6 +98,9 @@
       </if>
       <if test="anonymous != null">
         #{anonymous,javaType=java.lang.String},
+      </if>
+      <if test="voteStatus != null">
+        #{voteStatus,javaType=java.lang.String},
       </if>
       <if test="createBy != null">
         #{createBy,javaType=java.lang.String},

@@ -23,6 +23,8 @@ public class Vote extends BaseEntity {
 
     private String anonymous;
 
+    private String voteStatus;
+
     /**
      * Gets userId.
      *
@@ -129,5 +131,23 @@ public class Vote extends BaseEntity {
      */
     public void setAnonymous(String anonymous) {
         this.anonymous = anonymous;
+    }
+
+    /**
+     * Gets voteStatus.
+     *
+     * @return Value of voteStatus.
+     */
+    public String getVoteStatus() {
+        return this.voteStatus;
+    }
+
+    /**
+     * Sets voteStatus.
+     *
+     * @param voteStatus Simple param.
+     */
+    public void setVoteStatus(String voteStatus) {
+        this.voteStatus = voteStatus;
     }
 }
