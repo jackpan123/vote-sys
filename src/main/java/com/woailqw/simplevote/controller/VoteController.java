@@ -14,11 +14,16 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -30,6 +35,8 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @Api("Vote Controller")
 @RestController(value = "vote")
+@CrossOrigin(origins = "*")
+@RequestMapping(path = "/vote", produces = "application/json")
 public class VoteController {
 
     @Autowired
@@ -48,7 +55,8 @@ public class VoteController {
      * @return Result.
      */
     @ApiOperation("Vote Increment")
-    @PostMapping(value = "vote/v1.0/increment")
+    @PostMapping(value = "/v1.0/increment", consumes = "application/json")
+    @ResponseStatus(HttpStatus.CREATED)
     public CreatedVO register(@RequestBody @Validated VoteIncrementDTO voteIncrement) {
         // Access current user ID.
         String userId = userService.getCurrentUser().getId();
@@ -65,15 +73,20 @@ public class VoteController {
     }
 
     @ApiOperation("Vote Increment")
-    @GetMapping(value = "vote/v1.0/center")
+    @GetMapping(value = "/v1.0/center")
     public PageResponseVO<Vote> voteCenter(Integer page, Integer count) {
         int start = (page - 1) * count;
         return ResponseUtil.generatePageResult(voteMapper.countTotal(), voteMapper.list(start, count), page, count);
     }
 
     @ApiOperation("Vote Detail")
-    @GetMapping(value = "vote/v1.0/voteDetail/{voteId}")
-    public UnifyResponseVO<Vote> voteDetail(@PathVariable String voteId) {
-        return ResponseUtil.generateUpdatedResponse(Code.SUCCESS.getCode(), voteMapper.get(voteId));
+    @GetMapping(value = "/v1.0/voteDetail/{voteId}")
+    public ResponseEntity<Vote> voteDetail(@PathVariable String voteId) {
+        Vote vote = voteMapper.get(voteId);
+        if (vote != null) {
+            return new ResponseEntity<>(vote, HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
     }
 }

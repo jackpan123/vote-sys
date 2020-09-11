@@ -48,7 +48,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity httpSecurity) throws Exception {
 
         // We don't need CSRF for this example
-        httpSecurity.csrf().disable()
+        httpSecurity
             // dont authenticate this particular request
             .authorizeRequests().antMatchers("/authenticate", "/swagger-ui.html", "/user/v1.0/register").permitAll()
             .antMatchers(HttpMethod.GET,

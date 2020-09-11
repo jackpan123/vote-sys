@@ -2,13 +2,14 @@ package com.woailqw.simplevote.entity;
 
 import cn.hutool.core.lang.UUID;
 import java.time.LocalDateTime;
+import lombok.Data;
 
 /**
  * Base class.
  * @author Jack Pan
  * @version 1.0 2020-08-08
  */
-
+@Data
 public class BaseEntity {
 
     private static final String ADMIN_ID = "0";
@@ -43,59 +44,5 @@ public class BaseEntity {
         this.updateDate = LocalDateTime.now();
     }
 
-    public String getId() {
-        return id;
-    }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getCreateBy() {
-        return createBy;
-    }
-
-    public void setCreateBy(String createBy) {
-        this.createBy = createBy;
-    }
-
-    public LocalDateTime getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(LocalDateTime createDate) {
-        this.createDate = createDate;
-    }
-
-    public String getUpdateBy() {
-        return updateBy;
-    }
-
-    public void setUpdateBy(String updateBy) {
-        this.updateBy = updateBy;
-    }
-
-    public LocalDateTime getUpdateDate() {
-        return updateDate;
-    }
-
-    public void setUpdateDate(LocalDateTime updateDate) {
-        this.updateDate = updateDate;
-    }
-
-    public String getRemarks() {
-        return remarks;
-    }
-
-    public void setRemarks(String remarks) {
-        this.remarks = remarks;
-    }
-
-    public String getDelFlag() {
-        return delFlag;
-    }
-
-    public void setDelFlag(String delFlag) {
-        this.delFlag = delFlag;
-    }
 }

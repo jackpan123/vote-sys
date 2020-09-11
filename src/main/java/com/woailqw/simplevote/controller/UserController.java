@@ -14,8 +14,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -26,6 +28,8 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @Api("User Controller")
 @RestController(value = "user")
+@CrossOrigin(origins = "*")
+@RequestMapping(path = "/user", produces = "application/json")
 public class UserController extends BaseController{
 
     private static final BCryptPasswordEncoder ENCODER = new BCryptPasswordEncoder();
@@ -34,7 +38,7 @@ public class UserController extends BaseController{
     private UserMapper userMapper;
 
     @ApiOperation("Register")
-    @PostMapping(value = "user/v1.0/register")
+    @PostMapping(value = "/v1.0/register")
     public UnifyResponseVO register(@RequestBody @Validated RegisterDTO userInfo, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return new UnifyResponseVO(Code.PARAMETER_ERROR.getCode(), this.createErrorDescription(bindingResult));
