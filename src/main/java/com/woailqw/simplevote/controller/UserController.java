@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @Api("User Controller")
 @RestController(value = "user")
-@CrossOrigin(origins = "*")
+//@CrossOrigin(origins = "*")
 @RequestMapping(path = "/user", produces = "application/json")
 public class UserController extends BaseController{
 

@@ -48,9 +48,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity httpSecurity) throws Exception {
 
         // We don't need CSRF for this example
-        httpSecurity
+        httpSecurity.csrf().disable()
             // dont authenticate this particular request
-            .authorizeRequests().antMatchers("/authenticate", "/swagger-ui.html", "/user/v1.0/register").permitAll()
+            .authorizeRequests()
+            .antMatchers(
+                "/authenticate",
+                "/swagger-ui.html",
+                "/user/v1.0/register").permitAll()
             .antMatchers(HttpMethod.GET,
             "/v2/api-docs",
             "/swagger-resources/**",
@@ -59,10 +63,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             "favicon.ico")
             .permitAll()
             // all other requests need to be authenticated
-                .anyRequest().authenticated().and()
+            .anyRequest().authenticated().and()
             // make sure we use stateless session; session won't be used to
             // store user's state.
-                .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
+            .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and()
+            .sessionManagement()
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         // Add a filter to validate the tokens with every request

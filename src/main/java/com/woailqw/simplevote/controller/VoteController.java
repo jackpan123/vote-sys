@@ -9,7 +9,6 @@ import com.woailqw.simplevote.service.VoteService;
 import com.woailqw.simplevote.utils.ResponseUtil;
 import com.woailqw.simplevote.vo.CreatedVO;
 import com.woailqw.simplevote.vo.PageResponseVO;
-import com.woailqw.simplevote.vo.UnifyResponseVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.BeanUtils;
