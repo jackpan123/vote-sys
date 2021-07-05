@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
@@ -23,13 +24,12 @@ public class VoteIncrementDTO {
     private String voteTitle;
 
     @Valid
-    @NotBlank(message = "投票项不为空")
     private List<VoteItemDTO> voteItemList;
 
     @NotBlank(message = "多选为必选项")
     private String multiChoice;
 
-    @NotBlank(message = "截止时间为必选项")
+    @NotNull
     @JsonFormat(timezone="GMT+8")
     private LocalDateTime voteEnd;
 

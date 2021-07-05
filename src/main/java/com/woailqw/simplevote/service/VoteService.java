@@ -22,17 +22,18 @@ public class VoteService {
      * @param voteIncrement
      */
     public void supplementalAttributes(Vote vote, VoteIncrementDTO voteIncrement) {
-        if ("true".equals(voteIncrement.getAnonymous())) {
+        if (Boolean.TRUE.equals(voteIncrement.getAnonymous())) {
             vote.setAnonymous("1");
         } else {
             vote.setAnonymous("0");
         }
 
-        if ("true".equals(voteIncrement.getMultiChoice())) {
+        if (Boolean.TRUE.equals(voteIncrement.getMultiChoice())) {
             vote.setMultiChoice("1");
         } else {
             vote.setMultiChoice("0");
         }
+        vote.setVoteStatus("1");
         vote.setVoteItem(new Gson().toJson(voteIncrement.getVoteItemList()));
     }
 }

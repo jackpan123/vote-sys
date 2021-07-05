@@ -56,7 +56,7 @@ public class VoteController {
     @ApiOperation("Vote Increment")
     @PostMapping(value = "/v1.0/increment", consumes = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
-    public CreatedVO register(@RequestBody @Validated VoteIncrementDTO voteIncrement) {
+    public CreatedVO increment(@RequestBody @Validated VoteIncrementDTO voteIncrement) {
         // Access current user ID.
         String userId = userService.getCurrentUser().getId();
         Vote vote = new Vote();

@@ -2,6 +2,7 @@ package com.woailqw.simplevote.dto;
 
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
@@ -13,7 +14,7 @@ import javax.validation.constraints.Size;
  */
 public class VoteItemDTO {
 
-    @NotBlank(message = "投票项ID不为空")
+    @NotNull(message = "投票项ID不为空")
     private Integer id;
 
     @NotBlank(message = "投票项内容不为空")
