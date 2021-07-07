@@ -1,14 +1,21 @@
 package com.woailqw.simplevote.controller;
 
+import static com.woailqw.simplevote.constant.Code.VOTED;
+
 import com.woailqw.simplevote.constant.Code;
+import com.woailqw.simplevote.dao.VoteItemMapper;
 import com.woailqw.simplevote.dao.VoteMapper;
 import com.woailqw.simplevote.dto.VoteIncrementDTO;
 import com.woailqw.simplevote.entity.Vote;
+import com.woailqw.simplevote.entity.VoteItem;
 import com.woailqw.simplevote.service.UserService;
+import com.woailqw.simplevote.service.VoteItemService;
 import com.woailqw.simplevote.service.VoteService;
 import com.woailqw.simplevote.utils.ResponseUtil;
 import com.woailqw.simplevote.vo.CreatedVO;
 import com.woailqw.simplevote.vo.PageResponseVO;
+import com.woailqw.simplevote.vo.SubmitVoteVo;
+import com.woailqw.simplevote.vo.UnifyResponseVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.BeanUtils;
@@ -42,10 +49,16 @@ public class VoteController {
     private VoteMapper voteMapper;
 
     @Autowired
+    private VoteItemMapper voteItemMapper;
+
+    @Autowired
     private UserService userService;
 
     @Autowired
     private VoteService voteService;
+
+    @Autowired
+    private VoteItemService voteItemService;
 
     /**
      * Create vote.
@@ -80,12 +93,29 @@ public class VoteController {
 
     @ApiOperation("Vote Detail")
     @GetMapping(value = "/v1.0/voteDetail/{voteId}")
-    public ResponseEntity<Vote> voteDetail(@PathVariable String voteId) {
+    public UnifyResponseVO voteDetail(@PathVariable String voteId) {
         Vote vote = voteMapper.get(voteId);
-        if (vote != null) {
-            return new ResponseEntity<>(vote, HttpStatus.OK);
+        // Access current user ID.
+        String userId = userService.getCurrentUser().getId();
+        if (vote == null) {
+            return new UnifyResponseVO("该投票未找到", HttpStatus.NOT_FOUND);
         }
+        boolean checkStatus = voteItemService.checkUserVoteStatus(vote, userId);
+        if (checkStatus) {
+            return new UnifyResponseVO(VOTED.getCode(), VOTED.getZhDescription(), HttpStatus.OK);
+        }
+        //voteService.updateVoteEnd();
 
-        return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        return new UnifyResponseVO<>(vote, HttpStatus.OK);
+    }
+
+    @ApiOperation("Submit Vote")
+    @PostMapping(value = "/v1.0/submitVote/")
+    public UnifyResponseVO submitVote(@RequestBody SubmitVoteVo vo) {
+        // Access current user ID.
+        String userId = userService.getCurrentUser().getId();
+        VoteItem voteItem = VoteItem.getInstance(userId, vo.getVoteId(), vo.getVoteItemId());
+        voteItemMapper.save(voteItem);
+        return new UnifyResponseVO<>(voteItem, HttpStatus.OK);
     }
 }

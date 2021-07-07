@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.woailqw.simplevote.dao.VoteItemMapper" >
+  <!--<cache />-->
+  <resultMap id="baseResultMap" type="com.woailqw.simplevote.entity.VoteItem" >
+    <id column="id" property="id" javaType="java.lang.String" />
+    <result column="create_by" property="createBy" javaType="java.lang.String" />
+    <result column="create_date" property="createDate" javaType="java.time.LocalDateTime" />
+    <result column="update_by" property="updateBy" javaType="java.lang.String" />
+    <result column="update_date" property="updateDate" javaType="java.time.LocalDateTime" />
+    <result column="remarks" property="remarks" javaType="java.lang.String" />
+    <result column="del_flag" property="delFlag" javaType="java.lang.String" />
+    <result column="user_id" property="userId" javaType="java.lang.String" />
+    <result column="vote_id" property="voteId" javaType="java.lang.String" />
+    <result column="vote_item_id" property="voteItemId" javaType="java.lang.String" />
+  </resultMap>
+  <insert id="save" parameterType="com.woailqw.simplevote.entity.VoteItem">
+    insert into vote_item_record
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="voteId != null">
+        vote_id,
+      </if>
+      <if test="voteItemId != null">
+        vote_item_id,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="updateBy != null">
+        update_by,
+      </if>
+      <if test="updateDate != null">
+        update_date,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+      <if test="delFlag != null">
+        del_flag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,javaType=java.lang.String},
+      </if>
+      <if test="userId != null">
+        #{userId,javaType=java.lang.String},
+      </if>
+      <if test="voteId != null">
+        #{voteId,javaType=java.lang.String},
+      </if>
+      <if test="voteItemId != null">
+        #{voteItemId,javaType=java.lang.String},
+      </if>
+      <if test="createBy != null">
+        #{createBy,javaType=java.lang.String},
+      </if>
+      <if test="createDate != null">
+        #{createDate,javaType=java.time.LocalDateTime},
+      </if>
+      <if test="updateBy != null">
+        #{updateBy,javaType=java.lang.String},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,javaType=java.time.LocalDateTime},
+      </if>
+      <if test="remarks != null">
+        #{remarks,javaType=java.lang.String},
+      </if>
+      <if test="delFlag != null">
+        #{delFlag,javaType=java.lang.String},
+      </if>
+    </trim>
+  </insert>
+
+</mapper>

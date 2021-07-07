@@ -11,6 +11,7 @@ public enum Code {
     CREATED(1, "Created", "创建成功"),
     UPDATED(2, "Updated", "更新成功"),
     DELETED(3, "Deleted", "删除成功"),
+    VOTED(4, "User already voted", "已经投过票"),
     FAIL(10200, "Failed", "失败"),
     UN_AUTHORIZATION(10000, "Authorization Failed", "认证失败"),
     UN_AUTHENTICATION(10010, "Authentication Failed", "授权失败"),

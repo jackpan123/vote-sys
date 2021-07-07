@@ -1,9 +1,11 @@
 package com.woailqw.simplevote.service;
 
 import com.google.gson.Gson;
+import com.woailqw.simplevote.dao.VoteMapper;
 import com.woailqw.simplevote.dto.VoteIncrementDTO;
 import com.woailqw.simplevote.dto.VoteItemDTO;
 import com.woailqw.simplevote.entity.Vote;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class VoteService {
+
 
     /**
      * Map multi choice and anonymous.
@@ -36,4 +39,5 @@ public class VoteService {
         vote.setVoteStatus("1");
         vote.setVoteItem(new Gson().toJson(voteIncrement.getVoteItemList()));
     }
+
 }
