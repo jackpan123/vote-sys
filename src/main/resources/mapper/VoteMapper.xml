@@ -122,4 +122,50 @@
       </if>
     </trim>
   </insert>
+
+  <update id="update" parameterType="com.woailqw.simplevote.entity.Vote">
+    update vote
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,javaType=java.lang.String},
+      </if>
+      <if test="voteTitle != null">
+        vote_title = #{voteTitle,javaType=java.lang.String},
+      </if>
+      <if test="voteItem != null">
+        vote_item = #{voteItem,javaType=java.lang.String},
+      </if>
+      <if test="multiChoice != null">
+        multi_choice = #{multiChoice,javaType=java.lang.String},
+      </if>
+      <if test="voteEnd != null">
+        vote_end = #{voteEnd,javaType=java.time.LocalDateTime},
+      </if>
+      <if test="anonymous != null">
+        anonymous = #{anonymous,javaType=java.lang.String},
+      </if>
+      <if test="voteStatus != null">
+        vote_status = #{voteStatus,javaType=java.lang.String},
+      </if>
+      <if test="createBy != null">
+        create_by = #{createBy,javaType=java.lang.String},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,javaType=java.time.LocalDateTime},
+      </if>
+      <if test="updateBy != null">
+        update_by = #{updateBy,javaType=java.lang.String},
+      </if>
+      <if test="updateDate != null">
+        update_date = #{updateDate,javaType=java.time.LocalDateTime},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,javaType=java.lang.String},
+      </if>
+      <if test="delFlag != null">
+        del_flag = #{delFlag,javaType=java.lang.String},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
 </mapper>

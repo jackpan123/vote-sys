@@ -44,4 +44,11 @@ public interface VoteMapper {
      * @return Vote.
      */
     Vote get(String voteId);
+
+    /**
+     * Update vote
+     * @param vote
+     * @return
+     */
+    Integer update(Vote vote);
 }

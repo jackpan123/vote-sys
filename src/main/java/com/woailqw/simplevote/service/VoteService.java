@@ -1,10 +1,13 @@
 package com.woailqw.simplevote.service;
 
 import com.google.gson.Gson;
+import com.woailqw.simplevote.constant.VoteStatus;
 import com.woailqw.simplevote.dao.VoteMapper;
 import com.woailqw.simplevote.dto.VoteIncrementDTO;
 import com.woailqw.simplevote.dto.VoteItemDTO;
 import com.woailqw.simplevote.entity.Vote;
+import java.time.LocalDateTime;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +19,9 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class VoteService {
+
+    @Autowired
+    private VoteMapper voteMapper;
 
 
     /**
@@ -40,4 +46,15 @@ public class VoteService {
         vote.setVoteItem(new Gson().toJson(voteIncrement.getVoteItemList()));
     }
 
+    public void updateVoteStatus(List<Vote> list) {
+        LocalDateTime now = LocalDateTime.now();
+        for (Vote vote : list) {
+            if (VoteStatus.STARTING.equals(vote.getVoteStatus())) {
+                if (now.compareTo(vote.getVoteEnd()) > 0) {
+                    vote.setVoteStatus(VoteStatus.END);
+                    voteMapper.update(vote);
+                }
+            }
+        }
+    }
 }

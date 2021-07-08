@@ -18,6 +18,7 @@ import com.woailqw.simplevote.vo.SubmitVoteVo;
 import com.woailqw.simplevote.vo.UnifyResponseVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import java.util.List;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -88,7 +89,9 @@ public class VoteController {
     @GetMapping(value = "/v1.0/center")
     public PageResponseVO<Vote> voteCenter(Integer page, Integer count) {
         int start = (page - 1) * count;
-        return ResponseUtil.generatePageResult(voteMapper.countTotal(), voteMapper.list(start, count), page, count);
+        List<Vote> list = voteMapper.list(start, count);
+        voteService.updateVoteStatus(list);
+        return ResponseUtil.generatePageResult(voteMapper.countTotal(), list, page, count);
     }
 
     @ApiOperation("Vote Detail")
