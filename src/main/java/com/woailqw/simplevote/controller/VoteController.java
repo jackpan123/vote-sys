@@ -2,6 +2,8 @@ package com.woailqw.simplevote.controller;
 
 import static com.woailqw.simplevote.constant.Code.VOTED;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.woailqw.simplevote.constant.Code;
 import com.woailqw.simplevote.dao.VoteItemMapper;
 import com.woailqw.simplevote.dao.VoteMapper;
@@ -16,9 +18,12 @@ import com.woailqw.simplevote.vo.CreatedVO;
 import com.woailqw.simplevote.vo.PageResponseVO;
 import com.woailqw.simplevote.vo.SubmitVoteVo;
 import com.woailqw.simplevote.vo.UnifyResponseVO;
+import com.woailqw.simplevote.vo.VoteItemResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -107,7 +112,6 @@ public class VoteController {
         if (checkStatus) {
             return new UnifyResponseVO(VOTED.getCode(), VOTED.getZhDescription(), HttpStatus.OK);
         }
-        //voteService.updateVoteEnd();
 
         return new UnifyResponseVO<>(vote, HttpStatus.OK);
     }
@@ -120,5 +124,31 @@ public class VoteController {
         VoteItem voteItem = VoteItem.getInstance(userId, vo.getVoteId(), vo.getVoteItemId());
         voteItemMapper.save(voteItem);
         return new UnifyResponseVO<>(voteItem, HttpStatus.OK);
+    }
+
+    @ApiOperation("Get Vote Items")
+    @GetMapping(value = "/v1.0/getVoteItems/{voteId}")
+    public UnifyResponseVO getVoteItems(@PathVariable String voteId) {
+        Vote vote = voteMapper.get(voteId);
+        String voteItem = vote.getVoteItem();
+        JSONArray itemJson = JSONArray.parseArray(voteItem);
+        List<VoteItem> list = voteItemMapper.list();
+        Map<Integer, VoteItemResult> resultMap = new HashMap<>();
+        for (int i = 0; i < itemJson.size(); i++) {
+            JSONObject jsonObject = itemJson.getJSONObject(i);
+            Integer id = jsonObject.getInteger("id");
+            String name = jsonObject.getString("itemContext");
+            VoteItemResult result = new VoteItemResult();
+            result.setId(id);
+            result.setName(name);
+            resultMap.put(id, result);
+        }
+        for (VoteItem item : list) {
+            VoteItemResult result = resultMap.get(item.getVoteItemId());
+            if (result != null) {
+                result.incrementNumber();
+            }
+        }
+        return new UnifyResponseVO<>(resultMap.values(), HttpStatus.OK);
     }
 }

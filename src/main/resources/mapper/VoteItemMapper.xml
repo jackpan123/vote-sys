@@ -82,4 +82,8 @@
     </trim>
   </insert>
 
+  <select id="list" resultMap="baseResultMap">
+      select * from vote where del_flag = '0'
+  </select>
+
 </mapper>

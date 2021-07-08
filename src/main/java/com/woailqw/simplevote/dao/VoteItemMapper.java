@@ -1,7 +1,7 @@
 package com.woailqw.simplevote.dao;
 
-import com.woailqw.simplevote.entity.Vote;
 import com.woailqw.simplevote.entity.VoteItem;
+import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -16,7 +16,7 @@ public interface VoteItemMapper {
     /**
      * Save vote.
      *
-     * @param vote Vote info.
+     * @param voteItem Vote info.
      * @return Effect rows.
      */
     int save(VoteItem voteItem);
@@ -29,4 +29,11 @@ public interface VoteItemMapper {
      */
     @Select(value = "SELECT COUNT(user_id) FROM vote_item_record WHERE user_id = #{userId} AND vote_id = #{voteId}")
     int getVoteItemByUserId(@Param("userId") String userId, @Param("voteId") String voteId);
+
+    /**
+     * VoteItem list.
+     *
+     * @return Vote list.
+     */
+    List<VoteItem> list();
 }
