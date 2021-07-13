@@ -83,7 +83,7 @@
   </insert>
 
   <select id="list" resultMap="baseResultMap">
-      select * from vote where del_flag = '0'
+      select * from vote_item_record where del_flag = '0'
   </select>
 
 </mapper>
