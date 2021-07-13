@@ -144,7 +144,7 @@ public class VoteController {
             resultMap.put(id, result);
         }
         for (VoteItem item : list) {
-            VoteItemResult result = resultMap.get(item.getVoteItemId());
+            VoteItemResult result = resultMap.get(Integer.valueOf(item.getVoteItemId()));
             if (result != null) {
                 result.incrementNumber();
             }
